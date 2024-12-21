@@ -4,6 +4,7 @@ import PerformanceForm from './components/PerformanceForm';
 import ResultsView from './components/ResultsView';
 import { AthleteInfo, AthletePerformance, WaveResult } from './types';
 import { calculatePace, calculateWaveResults } from './utils/calculations';
+import { submitToNetlify } from './utils/formSubmission';
 
 export default function App() {
   const [step, setStep] = useState(1);
@@ -25,7 +26,20 @@ export default function App() {
   });
   const [results, setResults] = useState<WaveResult[]>([]);
 
-  const handleAthleteInfoSubmit = () => {
+  const handleAthleteInfoSubmit = async () => {
+    // Submit initial athlete data
+    const [firstName, ...lastNameParts] = athleteInfo.fullName.split(' ');
+    const lastName = lastNameParts.join(' ');
+    
+    await submitToNetlify({
+      firstName,
+      lastName,
+      club: athleteInfo.club,
+      email: athleteInfo.email,
+      swimTimeMinutes: 0,
+      swimTimeSeconds: 0
+    });
+    
     setPerformance(prev => ({
       ...prev,
       ...athleteInfo
@@ -33,7 +47,20 @@ export default function App() {
     setStep(2);
   };
 
-  const handlePerformanceSubmit = () => {
+  const handlePerformanceSubmit = async () => {
+    // Submit performance data
+    const [firstName, ...lastNameParts] = performance.fullName.split(' ');
+    const lastName = lastNameParts.join(' ');
+    
+    await submitToNetlify({
+      firstName,
+      lastName,
+      club: performance.club,
+      email: performance.email,
+      swimTimeMinutes: performance.swimmingMinutes,
+      swimTimeSeconds: performance.swimmingSeconds
+    });
+
     const swimPacePerKm = calculatePace(
       performance.swimmingDistance,
       performance.swimmingMinutes,

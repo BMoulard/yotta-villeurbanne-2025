@@ -8,13 +8,14 @@
   </head>
   <body>
     <!-- Hidden Netlify Form -->
-    <form name="athlete-data" netlify netlify-honeypot="bot-field" hidden>
-      <input type="text" name="firstName" />
-      <input type="text" name="lastName" />
-      <input type="text" name="club" />
+    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
       <input type="email" name="email" />
-      <input type="number" name="swimTimeMinutes" />
-      <input type="number" name="swimTimeSeconds" />
+      <select name="role[]" multiple>
+        <option value="leader">Leader</option>
+        <option value="follower">Follower</option>
+      </select>
+      <textarea name="message"></textarea>
     </form>
     
     <div id="root"></div>
