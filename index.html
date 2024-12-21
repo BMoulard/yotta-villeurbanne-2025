@@ -7,6 +7,16 @@
     <title>Vite + React + TS</title>
   </head>
   <body>
+    <!-- Hidden Netlify Form -->
+    <form name="athlete-data" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="firstName" />
+      <input type="text" name="lastName" />
+      <input type="text" name="club" />
+      <input type="email" name="email" />
+      <input type="number" name="swimTimeMinutes" />
+      <input type="number" name="swimTimeSeconds" />
+    </form>
+    
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
